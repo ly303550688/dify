@@ -51,7 +51,7 @@ function ModelSelectorTrigger({
   showModelMeta = true,
   isModelCompatible = true,
 }: ModelSelectorTriggerProps) {
-  const { t } = useTranslation(['common', 'plugin'])
+  const { t } = useTranslation(['common', 'plugin', 'modelProvider'])
   const valueId = useId()
 
   const showClear = !!defaultModel && !!onClear
@@ -86,14 +86,14 @@ function ModelSelectorTrigger({
   const tooltipI18nKey =
     DERIVED_MODEL_STATUS_TOOLTIP_I18N[status as keyof typeof DERIVED_MODEL_STATUS_TOOLTIP_I18N]
   const statusLabel = !isModelCompatible
-    ? t(($) => $['modelProvider.selector.incompatible'], { ns: 'common' })
+    ? t(($) => $['modelProvider.selector.incompatible'], { ns: 'modelProvider' })
     : statusI18nKey
-      ? t(($) => $[statusI18nKey], { ns: 'common' })
+      ? t(($) => $[statusI18nKey], { ns: 'modelProvider' })
       : undefined
   const tooltipLabel = !isModelCompatible
-    ? t(($) => $['modelProvider.selector.incompatibleTip'], { ns: 'common' })
+    ? t(($) => $['modelProvider.selector.incompatibleTip'], { ns: 'modelProvider' })
     : tooltipI18nKey
-      ? t(($) => $[tooltipI18nKey], { ns: 'common' })
+      ? t(($) => $[tooltipI18nKey], { ns: 'modelProvider' })
       : statusLabel
   const isCreditsExhausted = status === 'credits-exhausted'
   const shouldShowModelMeta = showModelMeta && status === 'active' && isModelCompatible
@@ -122,8 +122,8 @@ function ModelSelectorTrigger({
                 data-surface={surface}
                 disabled={isDisabled}
                 className={cn(
-                  'group/model-selector-trigger flex w-full min-w-0 items-center border-0 bg-components-input-bg-normal text-left text-components-input-text-filled outline-hidden transition-colors',
-                  'hover:bg-state-base-hover-alt focus-visible:bg-state-base-hover-alt focus-visible:ring-2 focus-visible:ring-state-accent-solid data-popup-open:bg-state-base-hover-alt',
+                  'group/model-selector-trigger flex w-full min-w-0 items-center border-0 bg-components-input-bg-normal text-left text-components-input-text-filled transition-colors',
+                  'hover:bg-state-base-hover-alt focus-visible:bg-state-base-hover-alt data-popup-open:bg-state-base-hover-alt',
                   'disabled:cursor-not-allowed disabled:text-components-input-text-filled-disabled motion-reduce:transition-none',
                   'data-[size=small]:h-6 data-[size=small]:gap-px data-[size=small]:rounded-md data-[size=small]:p-0.5',
                   'data-[size=medium]:h-8 data-[size=medium]:gap-0.5 data-[size=medium]:rounded-lg data-[size=medium]:p-1',

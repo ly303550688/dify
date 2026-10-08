@@ -61,10 +61,20 @@ class _Runtime:
             raise self.error
         return self.response
 
+    def generate_more_like_this(
+        self, *, app_id: str, account_id: str, message_id: str, streaming: bool
+    ) -> GenerationResponse:
+        pytest.fail(f"Unexpected more-like-this call: {app_id=}, {account_id=}, {message_id=}, {streaming=}")
+
+
+@dataclass(frozen=True)
+class _InstalledAppServices:
+    generation: InstalledAppGenerationService
+
 
 @dataclass(frozen=True)
 class _Services:
-    installed_app_generation: InstalledAppGenerationService
+    installed_apps: _InstalledAppServices
 
 
 @pytest.fixture
@@ -78,7 +88,7 @@ def runtime(
         usage=SQLAlchemyInstalledAppRepository(session_factory=sqlite_session_factory),
         runtime=runtime,
     )
-    services = _Services(installed_app_generation=service)
+    services = _Services(installed_apps=_InstalledAppServices(generation=service))
     monkeypatch.setattr(completion_module, "application_services", lambda: services)
     monkeypatch.setattr(completion_service_module, "naive_utc_now", lambda: _USED_AT)
     harness.api.add_resource(
@@ -393,9 +403,11 @@ def test_resource_removed_after_admission_is_revalidated_before_generation(
 
     harness.state.permission_action = delete_resource
     services = _Services(
-        installed_app_generation=InstalledAppGenerationService(
-            usage=SQLAlchemyInstalledAppRepository(session_factory=sqlite_session_factory),
-            runtime=AppGenerateServiceRuntime(session_factory=sqlite_session_factory),
+        installed_apps=_InstalledAppServices(
+            generation=InstalledAppGenerationService(
+                usage=SQLAlchemyInstalledAppRepository(session_factory=sqlite_session_factory),
+                runtime=AppGenerateServiceRuntime(session_factory=sqlite_session_factory),
+            )
         )
     )
     monkeypatch.setattr(completion_module, "application_services", lambda: services)

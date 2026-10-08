@@ -16,6 +16,8 @@ import {
 } from '../overlay-shared'
 import { parsePlacement } from '../placement'
 
+type AutocompleteActions = BaseAutocomplete.Root.Actions
+
 type AutocompleteProps<ItemValue> = BaseAutocomplete.Root.Props<ItemValue>
 type AutocompleteChangeEventDetails = BaseAutocomplete.Root.ChangeEventDetails
 type AutocompleteGroupedProps<Items extends readonly { items: readonly unknown[] }[]> = Omit<
@@ -75,9 +77,8 @@ const autocompleteListClassName = [
 
 const autocompleteItemClassName = [
   'mx-1 flex min-h-8 cursor-pointer select-none items-center gap-2 rounded-lg px-2 py-1.5 text-text-secondary outline-hidden',
-  'hover:bg-state-base-hover-alt hover:text-text-primary',
   'data-highlighted:bg-state-base-hover data-highlighted:text-text-primary',
-  'data-disabled:cursor-not-allowed data-disabled:opacity-30 data-disabled:hover:bg-transparent data-disabled:hover:text-text-secondary',
+  'data-disabled:cursor-not-allowed data-disabled:opacity-30',
 ]
 
 const autocompleteInputGroupVariants = cva(
@@ -429,6 +430,7 @@ export {
 }
 
 export type {
+  AutocompleteActions,
   AutocompleteChangeEventDetails,
   AutocompleteClearProps,
   AutocompleteCollectionProps,

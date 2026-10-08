@@ -22,14 +22,14 @@ export function VersionLabel({
   versionsBehind?: number
   isLatest?: boolean
 }) {
-  const { t } = useTranslation(['deployments', 'workflow'])
+  const { t } = useTranslation(['deployments', 'workflow', 'workflowHistory'])
   const { formatTimeFromNow } = useFormatTimeFromNow()
 
   if (!version) return <span className="text-text-quaternary">--</span>
 
   const name = getWorkflowVersionName(
     version,
-    t(($) => $['versionHistory.defaultName'], { ns: 'workflow' }),
+    t(($) => $['versionHistory.defaultName'], { ns: 'workflowHistory' }),
   )
   const description = version.marked_comment
   const publishedAt = version.created_at === undefined ? undefined : version.created_at * 1000
@@ -49,7 +49,7 @@ export function VersionLabel({
           render={
             <button
               type="button"
-              className="min-w-0 cursor-help truncate border-b border-dotted border-text-quaternary system-md-medium text-text-secondary outline-hidden focus-visible:ring-1 focus-visible:ring-state-accent-solid"
+              className="min-w-0 cursor-help truncate border-b border-dotted border-text-quaternary system-md-medium text-text-secondary"
             >
               {name}
             </button>

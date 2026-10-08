@@ -58,7 +58,7 @@ type WebAppListRow =
     }
 
 const WebAppsSectionContent = () => {
-  const { t } = useTranslation(['common', 'explore'])
+  const { t } = useTranslation(['common', 'explore', 'navigation'])
   const pathname = usePathname()
   const scrollRef = useRef<HTMLDivElement>(null)
   const searchFocusRequestedRef = useRef(false)
@@ -138,7 +138,7 @@ const WebAppsSectionContent = () => {
   })
 
   const canLoadMore = !installedAppsQuery.isFetching && !installedAppsQuery.error
-  const noResultsMessage = t(($) => $['mainNav.webApps.noResults'], { ns: 'common' })
+  const noResultsMessage = t(($) => $['mainNav.webApps.noResults'], { ns: 'navigation' })
   const showNoResults =
     !installedAppsQuery.isError &&
     !installedAppsQuery.isFetching &&
@@ -191,7 +191,7 @@ const WebAppsSectionContent = () => {
       onOpenChange={setAppsExpanded}
       className="grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto_minmax(0,1fr)]"
     >
-      <CollapsibleTrigger className="group/collapsible col-start-1 row-start-1 my-1 ml-2 flex min-h-6 w-fit min-w-0 touch-manipulation items-center justify-start gap-0 rounded-md px-2 py-1 text-left system-sm-medium text-text-tertiary outline-hidden select-none hover:text-text-secondary focus-visible:ring-2 focus-visible:ring-state-accent-solid">
+      <CollapsibleTrigger className="group/collapsible col-start-1 row-start-1 my-1 ml-2 flex min-h-6 w-fit min-w-0 touch-manipulation items-center justify-start gap-0 rounded-md px-2 py-1 text-left system-sm-medium text-text-tertiary select-none hover:text-text-secondary">
         <span id={sectionLabelId} className="system-xs-medium-uppercase">
           {t(($) => $['sidebar.webApps'], { ns: 'explore' })}
         </span>
@@ -219,8 +219,8 @@ const WebAppsSectionContent = () => {
               ref={focusSearchOnAttach}
               value={searchText}
               onValueChange={handleSearchTextChange}
-              placeholder={t(($) => $['mainNav.webApps.searchPlaceholder'], { ns: 'common' })}
-              aria-label={t(($) => $['mainNav.webApps.searchPlaceholder'], { ns: 'common' })}
+              placeholder={t(($) => $['mainNav.webApps.searchPlaceholder'], { ns: 'navigation' })}
+              aria-label={t(($) => $['mainNav.webApps.searchPlaceholder'], { ns: 'navigation' })}
             />
           </div>
         </CollapsiblePanel>
