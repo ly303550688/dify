@@ -39,7 +39,7 @@ export function StructureOutput({ className, value, onChange, readOnly }: Props)
       <div className="flex justify-between">
         <div className="flex items-center leading-4.5">
           <div className="code-sm-semibold text-text-secondary">structured_output</div>
-          <div className="ml-2 system-xs-regular text-text-tertiary">object</div>
+          <div className="ms-2 system-xs-regular text-text-tertiary">object</div>
         </div>
         {!readOnly && (
           <DialogTrigger
@@ -64,7 +64,7 @@ export function StructureOutput({ className, value, onChange, readOnly }: Props)
       ) : (
         <DialogTrigger
           handle={dialogHandle}
-          className="mt-1.5 flex h-10 w-full cursor-pointer items-center justify-center rounded-[10px] bg-background-section system-xs-regular text-text-tertiary focus-visible:ring-2 focus-visible:ring-state-accent-solid focus-visible:outline-hidden"
+          className="mt-1.5 flex h-10 w-full cursor-pointer items-center justify-center rounded-[10px] bg-background-section system-xs-regular text-text-tertiary"
         >
           {t(($) => $['structOutput.notConfiguredTip'], { ns: 'app' })}
         </DialogTrigger>
@@ -72,7 +72,7 @@ export function StructureOutput({ className, value, onChange, readOnly }: Props)
       {!readOnly && (
         <Dialog handle={dialogHandle}>
           <DialogContent
-            className="h-[calc(100dvh-32px)] max-h-200 w-full max-w-240 overflow-hidden! border-none p-0 text-left align-middle"
+            className="h-200 w-240 overflow-hidden"
             finalFocus={hasSchema ? configureButtonRef : undefined}
           >
             <JsonSchemaConfig defaultSchema={value?.schema} onSave={handleChange} />

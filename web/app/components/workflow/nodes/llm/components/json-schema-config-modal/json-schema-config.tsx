@@ -2,6 +2,7 @@ import type { SchemaRoot } from '../../types'
 import { Button } from '@langgenius/dify-ui/button'
 import { cn } from '@langgenius/dify-ui/cn'
 import { DialogClose, DialogTitle } from '@langgenius/dify-ui/dialog'
+import { IconButton } from '@langgenius/dify-ui/icon-button'
 import { Separator } from '@langgenius/dify-ui/separator'
 import { Tabs, TabsList, TabsPanel, TabsTab } from '@langgenius/dify-ui/tabs'
 import { useState } from 'react'
@@ -198,15 +199,23 @@ function JsonSchemaConfigContent({ defaultSchema, onSave }: JsonSchemaConfigProp
     >
       {/* Header */}
       <div className="relative flex p-6 pr-14 pb-3">
-        <DialogTitle className="grow truncate title-2xl-semi-bold text-text-primary">
+        <DialogTitle
+          // oxlint-disable-next-line shadcn/no-restyle -- Title shares the editor's header row with its actions.
+          className="grow"
+        >
           {t(($) => $['nodes.llm.jsonSchema.title'], { ns: 'workflowModels' })}
         </DialogTitle>
         <DialogClose
-          className="absolute top-5 right-5 flex size-8 items-center justify-center p-1.5"
-          aria-label={t(($) => $['operation.close'], { ns: 'common' })}
-        >
-          <span aria-hidden className="i-ri-close-line h-4.5 w-4.5 text-text-tertiary" />
-        </DialogClose>
+          render={
+            <IconButton
+              size="lg"
+              aria-label={t(($) => $['operation.close'], { ns: 'common' })}
+              className="absolute top-5 right-5"
+            >
+              <span aria-hidden className="i-ri-close-line h-4.5 w-4.5" />
+            </IconButton>
+          }
+        />
       </div>
       <div className="flex items-center justify-between px-6 py-2">
         <TabsList
@@ -226,7 +235,7 @@ function JsonSchemaConfigContent({ defaultSchema, onSave }: JsonSchemaConfigProp
         </TabsList>
         <div className="flex items-center gap-x-0.5">
           {/* JSON Schema Generator */}
-          <JsonSchemaGenerator crossAxisOffset={btnWidth} onApply={handleApplySchema} />
+          <JsonSchemaGenerator alignOffset={btnWidth} onApply={handleApplySchema} />
           <Separator decorative orientation="vertical" className="mx-2 h-3" />
           {/* JSON Schema Importer */}
           <JsonImporter updateBtnWidth={updateBtnWidth} onSubmit={handleSubmit} />
